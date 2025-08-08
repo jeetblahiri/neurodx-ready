@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NeuroDx – Symptom Checker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f8ff;
+    }
+
+    header {
+      background-color: #4da6ff;
+      padding: 20px 0;
+      text-align: center;
+      color: white;
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+
+    .question {
+      font-size: 1.2em;
+      margin: 15px 0;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .options {
+      margin-top: 8px;
+    }
+
+    .options label {
+      margin-right: 20px;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>NeuroDx Diagnostic Tool</header>
+
+  <div class="container">
+    <h2>Please answer the following questions:</h2>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form action="/diagnose" method="post">
+      {% for q in questions %}
+        <div class="question">
+          {{ loop.index }}. {{ q.text }}
+          <div class="options">
+            <label><input type="radio" name="{{ q.key }}" value="yes" required> Yes</label>
+            <label><input type="radio" name="{{ q.key }}" value="no"> No</label>
+          </div>
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="submit-btn">Get Diagnosis</button>
+    </form>
+  </div>
+</body>
+</html>
