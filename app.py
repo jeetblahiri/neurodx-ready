@@ -10,14 +10,12 @@ RAW_QUESTIONS = [
     "Do you have Two or more attacks at more than 24 hrs apart?",
     "Do you have Single attack only?",
     "Do you have Unconsciousness or drowsiness during episode?",
-    "Do you have jerky movements of limbs & with tonic posturing or forced head turning?",
-    "Do you have Jerky or tonic posturing on one side then involving the other side?",
-    "Do you have Frothing or tongue bite or urine incontinence during the attack or attack during sleep",
+    "Do you have bilateral jerky movements of limbs & with tonic posturing or forced head turning?",
+    "Do you have jerky or tonic posturing on one side then involving the other side?",
+    "Do you have frothing or tongue bite or urine incontinence during the attack or attack during sleep",
     "Do you have confusion or fatigue after the attack?",
-    "Do you have head injury or neurological problem?",
-    "Do you have Flailing or side-to-side movements or rapid breathing during attack?",
+    "Do you have flailing or side-to-side movements or rapid breathing during attack?",
     "Do you have attack with emotional stress or in public?",
-    "Do you have depression or anxiety?",
     "Are you able to hear or see during the attack?",
     "Do you have loss of consciousness while standing or exerting?",
     "Do you have heart disease or heart rate or ECG irregularity?",
@@ -34,30 +32,39 @@ def allowed_file(fname):
 # ──────────────────────────────────────────────────────────────
 # 3️⃣  Decision engine – write any logical expression you like
 def diagnose(ans):
-    q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17 = (
+    q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15 = (
         ans[k] for k in KEYS
     )
-    if not (q1 or q2 or q3):
-        return "The EEG is normal!"
+    if not (q1 or q2 or q3 or q4 or q5 or q6 or q7 or q8 or q9 or q10 or q11 or q12 or q13 or q14 or q15):
+        return "Multimodal AI model based EEG report is Normal!"
     else:
-        if (q4 or q6 or q8 or q15 or q16):
-            return "Strongly supportive of Generalised Epilepsy"
-        elif q5:
-            return "Strongly supportive of Focal Epilepsy"
-        elif q7:
-            return "Suggestive of Epilepsy" #use model
-        elif (q9 or q12):
-            return "Strongly suggestive of Psychogenic Non-Epileptic Attack"
-        elif (q10 or q11):
-            return "Supportive of Psychogenic Non-epileptic Attack" #use model
-        elif q13:
-            return "Supportive of Non-Epileptic Attack" #use model
-        elif q14:
-            return "Strongly supportive of Cardiogenic Non-Epileptic Attack"
-        elif q17:
-            return "Strongly supportive of Non-epileptic Attack - Likely Metabolic Encephalopathy"
+        if q13:
+            return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
         else:
-            return "Supportive of Non-epileptic Attack" #use model
+            if (q1 or q2 or q3) and (q4 or q5 or q6 or q7):
+                return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
+            elif q14 and (q1 or q2 or q3 or q4 or q5 or q6 or q7):
+                return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
+            elif (q1 and q4) or (q1 and q5) or (q1 and q6) or (q1 and q7):
+                return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
+            elif (q4 or q5 or q6 or q7):
+                return "Multimodal AI model based EEG report is supportive of Epilepsy"
+            elif not (q1 and q2 and q3) and (q8 or q9 or q10 or q11 or q12 or q15):
+                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack"
+            elif (q1 or q2 or q3) and (q11 and q12) or (q11 and q15) or (q12 and q15) and ((q8 or q9 or q10) and q11) and ((q8 or q9 or q10) and q12) and ((q8 or q9 or q10) and q15):
+                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack"
+            elif (q1 or q2 or q3) and (q8 or q9 or q10):
+                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack - Probable Psychogenic [Correlate clinically and get EEG with induction or Video EEG]"
+            elif (q1 or q2 or q3) and q11:
+                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack - Probable Neurocardiogenic Syncope [Correlate with Echo/Holter/Autonomic Function Tests]"
+            elif (q1 or q2 or q3) and q12:
+                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack - Probable Cardiogenic Syncope [Correlate with Echo/Holter]"
+            elif (q1 or q2 or q3) and q15:
+                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack - Probable Metabolic Encephalopathy [Correlate with metabolic screening-LFT/KFT/Ammonia] "
+            elif (q1 or q2 or q3):
+                return "Use Model"  # use model
+            elif q14:
+                return "Use Model"  # use model
 
 # ──────────────────────────────────────────────────────────────
 # 4️⃣  Routes (unchanged UI except radio `name` = q1, q2, …)
