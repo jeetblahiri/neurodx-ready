@@ -49,7 +49,7 @@ def diagnose(ans):
                 return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
             elif (q4 or q5 or q6 or q7):
                 return "Multimodal AI model based EEG report is supportive of Epilepsy"
-            elif not (q1 and q2 and q3) and (q8 or q9 or q10 or q11 or q12 or q15):
+            elif not (q1 or q2 or q3) and (q8 or q9 or q10 or q11 or q12 or q15):
                 return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack"
             elif (q1 or q2 or q3) and (q11 and q12) or (q11 and q15) or (q12 and q15) and ((q8 or q9 or q10) and q11) and ((q8 or q9 or q10) and q12) and ((q8 or q9 or q10) and q15):
                 return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack"
