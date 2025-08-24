@@ -38,33 +38,34 @@ def diagnose(ans):
     if not (q1 or q2 or q3 or q4 or q5 or q6 or q7 or q8 or q9 or q10 or q11 or q12 or q13 or q14 or q15):
         return "Multimodal AI model based EEG report is Normal!"
     else:
-        if q13:
+        if q15:
             return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
+        elif (q1 or q3) and q4 and (q6 or q7):
+            return "Multimodal AI model based EEG report is strongly supportive of Generalised Epilepsy"
+        elif q1 and q6:
+            return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
+        elif q3 and q6:
+            return "Multimodal AI model based EEG report is supportive of Epilepsy"
+        elif q4 and q6 and q7:
+            return "Multimodal AI model based EEG report is supportive of Generalised Epilepsy"
+        elif q5 and q6:
+            return "Multimodal AI model based EEG report is strongly supportive of Focal Epilepsy"
+        elif q1 and q3 and q5:
+            return "Multimodal AI model based EEG report is strongly supportive of Focal Epilepsy"
+        elif q8 and q9 and not q6 and not q7:
+            return "Multimodal AI model based EEG report is strongly supportive of Psychogenic Non Epileptic Attack"
+        elif q10 and not q6 and not q7:
+            return "Multimodal AI model based EEG report is strongly supportive of Psychogenic Non Epileptic Attack"
+        elif (q1 or q2 or q3) and q12 and not q6 and not q7:
+            return "Multimodal AI model based EEG report is strongly supportive of Non-epileptic Cardiogenic Syncope"
+        elif (q1 or q2 or q3) and q15 and not q4 and not q5 and not q6 and not q7:
+            return "Multimodal AI model based EEG report is strongly supportive of Non-epileptic Metabolic Encephalopathy"
+        elif (q1 or q2 or q3) and q11 and not q4 and not q5 and not q6 and not q7:
+            return "Multimodal AI model based EEG report is strongly supportive of Non-epileptic Neurocardiogenic Syncope"
+        elif (q1 or q2 or q3 or q4 or q5 or q6 or q7) and q14:
+            return "Multimodal AI model based EEG report is supportive of Epilepsy"
         else:
-            if (q1 or q2 or q3) and (q4 or q5 or q6 or q7):
-                return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
-            elif q14 and (q1 or q2 or q3 or q4 or q5 or q6 or q7):
-                return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
-            elif (q1 and q4) or (q1 and q5) or (q1 and q6) or (q1 and q7):
-                return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
-            elif (q4 or q5 or q6 or q7):
-                return "Multimodal AI model based EEG report is supportive of Epilepsy"
-            elif not (q1 or q2 or q3) and (q8 or q9 or q10 or q11 or q12 or q15):
-                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack"
-            elif (q1 or q2 or q3) and (q11 and q12) or (q11 and q15) or (q12 and q15) and ((q8 or q9 or q10) and q11) and ((q8 or q9 or q10) and q12) and ((q8 or q9 or q10) and q15):
-                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack"
-            elif (q1 or q2 or q3) and (q8 or q9 or q10):
-                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack - Probable Psychogenic [Correlate clinically and get EEG with induction or Video EEG]"
-            elif (q1 or q2 or q3) and q11:
-                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack - Probable Neurocardiogenic Syncope [Correlate with Echo/Holter/Autonomic Function Tests]"
-            elif (q1 or q2 or q3) and q12:
-                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack - Probable Cardiogenic Syncope [Correlate with Echo/Holter]"
-            elif (q1 or q2 or q3) and q15:
-                return "Multimodal AI model based EEG report is strongly suggestive of Non-Epileptic Attack - Probable Metabolic Encephalopathy [Correlate with metabolic screening-LFT/KFT/Ammonia] "
-            elif (q1 or q2 or q3):
-                return "Use Model"  # use model
-            elif q14:
-                return "Use Model"  # use model
+            return "Use model"
 
 # ──────────────────────────────────────────────────────────────
 # 4️⃣  Routes (unchanged UI except radio `name` = q1, q2, …)
