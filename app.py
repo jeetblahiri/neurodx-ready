@@ -38,7 +38,7 @@ def diagnose(ans):
     if not (q1 or q2 or q3 or q4 or q5 or q6 or q7 or q8 or q9 or q10 or q11 or q12 or q13 or q14 or q15):
         return "Multimodal AI model based EEG report is Normal!"
     else:
-        if q15:
+        if q13:
             return "Multimodal AI model based EEG report is strongly supportive of Epilepsy"
         elif (q1 or q3) and q4 and (q6 or q7):
             return "Multimodal AI model based EEG report is strongly supportive of Generalised Epilepsy"
